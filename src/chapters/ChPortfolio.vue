@@ -460,13 +460,13 @@ h2 {
   margin: clamp(2rem, 5vh, 3rem) 0 0;
   padding: 0;
 }
-/* Seventy-four rows, each with an image, is a lot of layout for a section most
-   visitors scroll past. The browser skips the ones it cannot see; the reserved
-   height keeps the scrollbar honest while it does. */
-.portfolio__list li {
-  content-visibility: auto;
-  contain-intrinsic-size: auto 4.6rem;
-}
+/* `content-visibility: auto` used to skip the rows that were off screen. It
+   is gone for the same reason it is gone from site-2-silkroad: Chrome does
+   not re-lay-out skipped content when the window is resized, and the stale
+   layout escapes the subtree — resize narrower after scrolling past this
+   chapter and the whole page keeps its old width. This is the one kind of
+   change this frozen copy takes: it fixes a browser-level defect and touches
+   nothing about the design it exists to preserve. */
 .row {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
