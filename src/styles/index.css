@@ -1,0 +1,288 @@
+/* Site 2 is a white page with two lit stages — the title card it opens on and
+   the chapter it closes with. No theme switch, no utility framework: plain CSS
+   with custom properties keeps the chapters readable as one file rather than as
+   a cloud of class names.
+   
+   Everything below is written against a surface/ink pair rather than against a
+   colour, so a section only has to say which of the two sets it is on and every
+   border, field and button inside it follows. The sets are `:root` (paper) and
+   `.stage` (navy). */
+@import './tokens.css';
+@import '@fontsource-variable/fraunces';
+@import '@fontsource-variable/space-grotesk';
+
+/* Paper: the page everything is read on.
+   The blues are the agency family's own, measured from logo/invest Uzb 1.*:
+   Invest Blue #006FB9 is 5.28:1 on white and Registan Navy #262261 is 14.15:1.
+   The ink tones were derived to clear AA on both paper surfaces. */
+:root {
+  --surface: #ffffff;
+  --surface-2: #f4f7fb;
+  --raise: rgb(38 34 97 / 0.03);
+
+  --ink: #141a2e;
+  --ink-soft: #3f4a66;
+  --ink-dim: #67718b;
+  --hairline: rgb(38 34 97 / 0.14);
+
+  --accent-soft: var(--brand-line-to, #006fb9);
+  --accent: #0a5c96;
+  --accent-deep: var(--brand-navy, #262261);
+  --glow: linear-gradient(to top right, #2e8fd4, #262261);
+  --danger: #b3261e;
+
+  --font-display: 'Fraunces Variable', ui-serif, Georgia, serif;
+  --font-body: 'Space Grotesk Variable', ui-sans-serif, system-ui, sans-serif;
+
+  --shell: min(100% - 2.5rem, 78rem);
+  --chapter-pad: clamp(4rem, 10vh, 8rem);
+
+  color-scheme: light;
+}
+
+/* A lit stage. The title card and the closing chapter keep the cinematic
+   ground the page was designed around; the gold mark only reads properly on a
+   dark surface (9.2:1 here, 3.2:1 on white), so this is also where it lives.
+   White on this navy is 15.2:1 and the cyan accent 9.1:1. */
+.stage,
+.on-stage {
+  --surface: #1b2150;
+  --surface-2: #242b60;
+  --raise: rgb(255 255 255 / 0.05);
+
+  --ink: #ffffff;
+  --ink-soft: #c3cbe6;
+  --ink-dim: #9aa4c8;
+  --hairline: rgb(255 255 255 / 0.18);
+
+  --accent-soft: #7fd4ec;
+  --accent: #3fb6dc;
+  --accent-deep: #7fd4ec;
+  --glow: linear-gradient(to top right, #7fd4ec, #2e8fd4);
+  --danger: #f0a3a3;
+  color-scheme: dark;
+}
+
+/* `.stage` also paints itself; `.on-stage` only borrows the tokens, which is
+   what the header needs while it floats over a stage without covering it. */
+.stage {
+  background: linear-gradient(170deg, #1b2150, #101538);
+  color: var(--ink-soft);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Clears the fixed bar. Kept in step with BAR_CLEARANCE in lib/motion.ts,
+     which Lenis needs because it never reads this property. */
+  scroll-padding-top: 6rem;
+}
+
+body {
+  margin: 0;
+  background: var(--surface);
+  color: var(--ink-soft);
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 0.95rem + 0.2vw, 1.0625rem);
+  line-height: 1.65;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* A very light film grain keeps the large flat navy from banding on cheap
+   panels. Generated, not an image asset. It belongs to the stages only — on
+   paper it would just be dirt. */
+.stage::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  color: var(--ink);
+  line-height: 1.04;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+  margin: 0;
+}
+
+p {
+  text-wrap: pretty;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.shell {
+  width: var(--shell);
+  margin-inline: auto;
+}
+
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+
+.gradient-text {
+  background: var(--glow);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.figure {
+  font-family: var(--font-display);
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+  letter-spacing: -0.03em;
+}
+
+.skip-link {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 200;
+  padding: 0.75rem 1.25rem;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--surface);
+  font-weight: 600;
+  transform: translateY(-150%);
+  transition: transform 0.2s;
+}
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Buttons. Two weights only: one solid call to action per screen, outlines for
+   everything else. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.5rem;
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: border-color 0.18s, background-color 0.18s, color 0.18s;
+}
+.btn:hover {
+  border-color: var(--accent);
+}
+.btn--solid {
+  border-color: transparent;
+  background: var(--accent-soft);
+  color: var(--surface);
+  font-weight: 600;
+}
+.btn--solid:hover {
+  background: var(--ink);
+  border-color: transparent;
+}
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* A hairline card. Used by the theme cards, the programme rows and the project
+   panel, so they stay visually one family. */
+.card {
+  border: 1px solid var(--hairline);
+  border-radius: 1rem;
+  background: var(--raise);
+}
+
+/* Every chapter is a full-bleed stage; pinning is added by GSAP only when
+   motion is allowed. */
+.chapter {
+  position: relative;
+  min-height: 100svh;
+  display: grid;
+  align-content: center;
+  padding-block: var(--chapter-pad);
+  overflow: clip;
+}
+
+.chapter__number {
+  position: fixed;
+  left: clamp(0.75rem, 2vw, 2rem);
+  top: 50%;
+  translate: 0 -50%;
+  z-index: 30;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  color: var(--ink-dim);
+  writing-mode: vertical-rl;
+  pointer-events: none;
+}
+
+/* The counter lives in the margin beside the shell, so it may only appear once
+   that margin is actually wider than the counter. The shell caps at 78rem, so
+   below ~1400px it would sit on top of the text. */
+@media (max-width: 1399px) {
+  .chapter__number {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  /* Without pinning the chapters must not be forced to full height, or the page
+     becomes an endless run of near-empty screens. */
+  .chapter {
+    min-height: 0;
+  }
+}

@@ -1,0 +1,205 @@
+# Credits and licences
+
+Everything in this repository is either generated from the client's own logo
+artwork, produced procedurally in code, or taken from a source with a licence
+that permits this use. There are no stock photographs, and no third-party brand
+logos.
+
+---
+
+## Imagery
+
+Sites 1 and 3 carry no photographs at all; every visual in them is generated at
+runtime or at build time. Site 2 carries the project photographs and renders
+that came embedded in the client's own project sheets, and the renders from the
+Madaniyat Hotel concept — see **Project photographs** below.
+
+| Visual | Where | How it is made |
+|---|---|---|
+| Girih lattice background | Site 1, hero | Repeating SVG `<pattern>` written in `GirihPattern.tsx` — two squares and a circle per tile, ~700 bytes |
+| Donut chart | Site 1, GDP structure | Recharts, from `content.json` |
+| Regional salary bars | Site 1, human capital | Plain CSS bars, from `content.json` |
+| Open Graph cards | All three | `scripts/process-logos.mjs`, composed as SVG and rasterised with sharp |
+| Rotating globe | Site 2, prologue | three.js — a generated lat/long wireframe, a marker over Tashkent and great-circle arcs. No texture, no model |
+| Arc fallback | Site 2, prologue | Inline SVG ellipses, shown when WebGL is unavailable or motion is reduced |
+| Silk Road corridor | Site 2, chapter I | A hand-authored schematic SVG path. Diagrammatic, not a map — it makes no territorial claim |
+| Project beeswarm | Site 2, chapter IV | Inline SVG, one dot per project on a logarithmic investment axis, packed in code from `forum-2026.json` |
+| Thematic direction icons | Site 2, chapter III | Eight glyphs drawn by hand on one 24-unit grid in `ThemeIcon.vue` |
+| Film grain | Site 2, the two lit stages | An inline `feTurbulence` SVG data URI at 3.5% opacity |
+| Region choropleth | Site 3, map | d3-geo, over the boundary data below |
+| Locator map | Site 2, contacts | OpenStreetMap's own embed — no key, no account; see below |
+
+## Project photographs
+
+The images on site 2's project cards are the client's own: they came embedded in
+the `.pptx` sheets the organiser supplied, and `scripts/build-project-photos.mjs`
+pulls them out, matched to the slide they belong to. The Madaniyat Hotel's
+renders come from its concept PDF in the same way.
+
+Nothing is sourced from anywhere else. Two classes of image are **deliberately
+dropped**:
+
+- **Screenshots of online maps.** Several sheets illustrate their location with a
+  grab of a mapping service. Those are not the client's to republish, so they are
+  detected and discarded — a map tile has a large area of flat near-neutral paper
+  and almost no texture, which a photograph does not.
+- **Template furniture.** The forum lockup, the masthead rule and the section
+  icons repeat on every slide of a deck, so anything appearing on more than two
+  slides is dropped.
+
+Automatic tests cannot tell a render of this project from a stock photograph of
+somebody else's, so **every lead image was looked at**. Fourteen were rejected by
+hand and listed in the script with the reason — satellite grabs with a plot drawn
+on them, a collage of European outlet villages, a photograph of Disneyland Paris,
+a stock jet-ski, a map pin graphic. Six projects are left without a picture
+because their sheets contain nothing else; better no picture than somebody
+else's theme park.
+
+What remains includes site plans and concept boards the client assembled
+themselves. Those are published as supplied; if any turns out not to be the
+client's own, it should be added to that list.
+
+## Map data
+
+The locator map in site 2's contacts block is **OpenStreetMap**'s standard embed
+— no API key and no account. Map data is © OpenStreetMap contributors, available
+under the Open Database Licence; the credit is printed under the map. The
+address was resolved to coordinates through OSM's Nominatim rather than guessed.
+
+<https://www.openstreetmap.org/copyright>
+
+## Geographic data
+
+**geoBoundaries** — Open Administrative Boundaries, gbOpen release.
+
+- Dataset: Uzbekistan ADM1 (2017), 14 first-order administrative divisions
+- Licence: **Open Data Commons Open Database License (ODbL) 1.0**
+- Source URL: `https://github.com/wmgeolab/geoBoundaries` (release `9469f09`)
+- Upstream source: `wambachers-osm.website/boundaries/`
+- Citation: Runfola, D. et al. (2020) *geoBoundaries: A global database of political
+  administrative boundaries.* PLoS ONE 15(4): e0231866.
+
+Processing (`scripts/build-geo.mjs`): properties reduced to the region `id` used
+in `content.json`, rings simplified with Douglas–Peucker and rounded to four
+decimals, and rewound to the orientation d3-geo expects. 6 206 positions → 2 733;
+170 KB → 49 KB. The ODbL requires that this derived database stay under the same
+licence, which it does; the attribution appears in the site 3 footer.
+
+Site 2 draws the same boundaries in chapter IV. It does not ship the GeoJSON:
+`scripts/build-region-map.mjs` projects it once (Albers equal-area conic,
+standard parallels 38.5°/44.5°, central meridian 66°E) into flat SVG paths in a
+1000 × 560 box, with a label point per region found by pole-of-inaccessibility
+search. 49 KB → 33 KB, and no projection library in the browser. The same ODbL
+terms apply to that derived file; site 2 credits it under the map as well as in
+its footer.
+
+## Ornament
+
+The girih field, the frieze and the rosette in site 2 are **generated by this
+repository** — `scripts/build-ornament.mjs` — and are nobody else's work. Each
+is a geometric construction rather than a drawing: the field and the rosette's
+heart are regular {8/3} octagrams, the frieze is a lozenge chain, and the
+rosette's petals are eight compass arcs. There is nothing here to licence and
+nobody to credit.
+
+The motifs belong to the architecture the page is about — the revetments of the
+Registan and Shah-i-Zinda, and the embroidery and carved ganch of an interior.
+They are used as decoration only. **No State symbol is reproduced, stylised or
+stood in for.** The State Emblem appears once, inside the organiser's own
+lockup, where it is placed unaltered and is not restyled by any of this.
+
+## Typefaces
+
+All self-hosted through [Fontsource](https://fontsource.org); nothing is fetched
+from a third-party CDN at runtime.
+
+| Family | Licence | Used by |
+|---|---|---|
+| Inter | SIL Open Font License 1.1 | Site 1 — body |
+| Manrope | SIL Open Font License 1.1 | Site 1 — headings |
+| Playfair Display | SIL Open Font License 1.1 | Site 2 — headings |
+| Manrope | SIL Open Font License 1.1 | Site 2 — body |
+| Fraunces | SIL Open Font License 1.1 | Site 2 (archived copy) — headings |
+| Space Grotesk | SIL Open Font License 1.1 | Site 2 (archived copy) — body |
+| IBM Plex Sans | SIL Open Font License 1.1 | Site 3 — interface |
+| IBM Plex Mono | SIL Open Font License 1.1 | Site 3 — figures |
+
+Note on site 3: IBM Plex places the Uzbek apostrophes `ʻ` (U+02BB) and `ʼ`
+(U+02BC) on a 0.6em advance, which splits every word containing one. A
+`@font-face` claiming only those two codepoints borrows them from a system UI
+font; see the comment at the top of `site-3-explorer/src/styles/app.css`.
+
+## Icons
+
+- **Lucide** (site 1) — ISC licence. Fifteen icons are imported by name through
+  `ContentIcon.tsx`; the namespace import that would pull in the whole set is
+  deliberately avoided.
+- Sites 2 and 3 use no icon package. Site 2 draws its few marks as inline SVG;
+  site 3 uses single typographic glyphs.
+
+## Logo artwork
+
+`logo/` contains the client's own artwork and is **never modified** — it is
+opened read-only and every derived asset is written to `brand/`. Provenance,
+extraction method and the colours measured from it are documented in
+`brand/LOGO_INVENTORY.md`.
+
+The State Emblem of the Republic of Uzbekistan appears in two of the supplied
+families. It is **not extracted from the agency artwork** (`logo/invest Uzb 2.*`):
+those pages are a concept rendering and must not carry state insignia.
+
+The emblem is also part of the Tourism Investment Forum lockup the organiser
+issued (`brand/newlogo/`). **Site 2 uses that lockup in full**, on the client's
+written instruction of 2026-10-07: the page is to become the forum's official
+site, and the lockup with the emblem is the mark the organiser issued for it. It
+appears in the header, the title card and the footer, and the emblem alone is the
+site's icon.
+
+`brand/svg/forum-wordmark.svg` remains as the emblem-free reduction, for any slot
+where the emblem would be too small to survive.
+
+The concept/demo disclaimer in the footer is **still switched on**. The client
+authorised the emblem, not the removal of the disclaimer; that is a separate
+decision and `meta.disclaimer_enabled` in `shared/data/content.json` is the single
+switch for it.
+
+## Third-party organisations
+
+Names of organisations that took part in TIIF 2026 appear as **text only**, from
+`content.json`. No third-party logos, wordmarks or brand colours are used.
+
+## Client source material
+
+The Tourism Investment Forum content on site 2 comes from documents supplied by
+the organiser for this project: the forum concept, the preliminary programme, and
+three batches of investment project sheets (`onepager .zip`, `Лойиҳалар new.zip`,
+`Лойиҳалар.zip`). They are read by `scripts/build-forum-data.mjs` and are **not
+redistributed** — the originals stay out of the repository and only the parsed
+facts are published.
+
+The sheets arrive in three generations of the same template with different field
+lists, and the same project appears in more than one batch. The newest sheet for
+a project wins; every sheet it was found in is recorded on the record, so a
+figure can be traced back.
+
+The project sheets contain an `INVESTMENT CONTACT` block with an initiator's name
+and personal mobile number, and the raw Tashkent-region tables add taxpayer
+identification numbers and bank details. **None of it is carried into
+`forum-2026.json` or onto the page** — the contact block is parsed in order to be
+discarded.
+
+## Data sources
+
+Every figure on all three sites comes from `shared/data/content.json`, and each
+one carries a source id resolved to a title, URL and access date in the footer of
+each site. The full list is in `docs/SOURCES.md`.
+
+Live exchange rates come from the Central Bank of Uzbekistan's public JSON feed
+(`cbu.uz`). `invest.gov.uz` is linked to, never scraped.
+
+## Software
+
+Frameworks and libraries are listed in each site's `package.json`. The notable
+ones — React, Vue, Svelte, Vite, Tailwind CSS, GSAP (standard licence, free for
+this use), three.js, D3, Recharts, Lenis, Framer Motion, sharp, svgo, mupdf — are
+MIT-licensed except where noted.
