@@ -14,17 +14,17 @@ export const UI_META: Record<Lang, { title: string; description: string }> = {
   uz: {
     title: 'Tourism Investment Forum 2026 — Toshkent, 25–27 noyabr',
     description:
-      'Birinchi xalqaro turizm investitsiya forumi. Oʻzbekiston Respublikasi Turizm qoʻmitasi. {regions} ta hududdan {count} ta investitsiya loyihasi, sakkiz yoʻnalish va bir kunlik ishbilarmonlik dasturi. Konsept/demo loyiha — rasmiy maʼlumot: invest.gov.uz',
+      'Birinchi xalqaro turizm investitsiya forumi. Oʻzbekiston Respublikasi Turizm qoʻmitasi. {regions} ta hududdan {count} ta investitsiya loyihasi, olti yoʻnalish va bir kunlik ishbilarmonlik dasturi. Konsept/demo loyiha — rasmiy maʼlumot: invest.gov.uz',
   },
   ru: {
     title: 'Tourism Investment Forum 2026 — Ташкент, 25–27 ноября',
     description:
-      'Первый международный инвестиционный форум в сфере туризма. Комитет по туризму Республики Узбекистан. {count} инвестиционных проектов из {regions} регионов, восемь направлений и однодневная деловая программа. Концепт/демо — официальная информация: invest.gov.uz',
+      'Первый международный инвестиционный форум в сфере туризма. Комитет по туризму Республики Узбекистан. {count} инвестиционных проектов из {regions} регионов, шесть направлений и однодневная деловая программа. Концепт/демо — официальная информация: invest.gov.uz',
   },
   en: {
     title: 'Tourism Investment Forum 2026 — Tashkent, 25–27 November',
     description:
-      'The First International Tourism Investment Forum, convened by the Tourism Committee of the Republic of Uzbekistan. {count} investment projects from {regions} regions, eight thematic directions and a one-day business programme. Concept/demo project — official information: invest.gov.uz',
+      'The First International Tourism Investment Forum, convened by the Tourism Committee of the Republic of Uzbekistan. {count} investment projects from {regions} regions, six thematic directions and a one-day business programme. Concept/demo project — official information: invest.gov.uz',
   },
 };
 
@@ -51,7 +51,7 @@ const en = {
     prologue: { n: 'The forum', title: 'Tourism Investment Forum 2026' },
     crossroads: { n: 'Chapter I', title: 'The Silk Road still runs through here' },
     momentum: { n: 'Chapter II', title: 'The ground it stands on' },
-    themes: { n: 'Chapter III', title: 'Eight directions' },
+    themes: { n: 'Chapter III', title: 'Six directions' },
     portfolio: { n: 'Chapter IV', title: 'The project portfolio' },
     programme: { n: 'Chapter V', title: 'One day, end to end' },
     path: { n: 'Chapter VI', title: 'From a proposal to a project' },
@@ -75,7 +75,7 @@ const en = {
     body: 'It is invested in because of the economy around it. Four figures for 2025, each from an official source, each carrying that source and the date it was read.',
   },
   themes: {
-    lead: 'Eight directions the forum is organised around.',
+    lead: 'The directions the portfolio is filed under.',
     body: 'Scroll sideways, or pick one — every project in the portfolio is filed under one of them.',
     filter: 'Show the projects',
     projectsIn: 'no projects | 1 project | {count} projects',
@@ -241,7 +241,7 @@ const uz: Messages = {
     prologue: { n: 'Forum', title: 'Tourism Investment Forum 2026' },
     crossroads: { n: 'I bob', title: 'Ipak yoʻli hamon shu yerdan oʻtadi' },
     momentum: { n: 'II bob', title: 'Qaysi zamin ustida turibdi' },
-    themes: { n: 'III bob', title: 'Sakkiz yoʻnalish' },
+    themes: { n: 'III bob', title: 'Olti yoʻnalish' },
     portfolio: { n: 'IV bob', title: 'Loyihalar portfeli' },
     programme: { n: 'V bob', title: 'Bir kun — boshidan oxirigacha' },
     path: { n: 'VI bob', title: 'Takliftan loyihagacha' },
@@ -265,7 +265,7 @@ const uz: Messages = {
     body: 'Unga atrofdagi iqtisodiyot tufayli sarmoya kiritiladi. 2025 yilga oid toʻrtta raqam; har biri rasmiy manbadan olingan, har biri manbasi va oʻqilgan sanasi bilan.',
   },
   themes: {
-    lead: 'Forum tashkil etilgan sakkizta yoʻnalish.',
+    lead: 'Portfel shu yoʻnalishlar boʻyicha tartiblangan.',
     body: 'Yon tomonga suring yoki birini tanlang — portfeldagi har bir loyiha shulardan biriga tegishli.',
     filter: 'Loyihalarni koʻrsatish',
     projectsIn: 'loyiha yoʻq | 1 ta loyiha | {count} ta loyiha',
@@ -429,7 +429,7 @@ const ru: Messages = {
     prologue: { n: 'Форум', title: 'Tourism Investment Forum 2026' },
     crossroads: { n: 'Глава I', title: 'Шёлковый путь по-прежнему проходит здесь' },
     momentum: { n: 'Глава II', title: 'На какой почве он стоит' },
-    themes: { n: 'Глава III', title: 'Восемь направлений' },
+    themes: { n: 'Глава III', title: 'Шесть направлений' },
     portfolio: { n: 'Глава IV', title: 'Портфель проектов' },
     programme: { n: 'Глава V', title: 'Один день, от начала до конца' },
     path: { n: 'Глава VI', title: 'От предложения к проекту' },
@@ -453,7 +453,7 @@ const ru: Messages = {
     body: 'В него инвестируют из-за экономики вокруг. Четыре цифры за 2025 год, каждая из официального источника, каждая — с указанием источника и даты.',
   },
   themes: {
-    lead: 'Восемь направлений, вокруг которых построен форум.',
+    lead: 'Направления, по которым распределён портфель.',
     body: 'Листайте вбок или выберите одно — каждый проект портфеля отнесён к одному из них.',
     filter: 'Показать проекты',
     projectsIn: 'нет проектов | {count} проект | {count} проекта | {count} проектов',
